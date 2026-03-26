@@ -1,0 +1,9 @@
+{
+    "name": "runner",
+    "version": "1.0.0",
+    "main": "runner.js",
+    "dependencies": {
+        "playwright": "^1.42.0",
+        "axios": "1.6.0"
+    }
+}
