@@ -1,9 +1,17 @@
 {
-    "name": "runner",
-    "version": "1.0.0",
-    "main": "runner.js",
-    "dependencies": {
-        "playwright": "^1.42.0",
-        "axios": "1.6.0"
-    }
+  "name": "test-automation",
+  "version": "1.0.0",
+  "description": "Playwright test runner — executes recorded JSON test plans",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "run": "node cli.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0",
+    "axios": "^1.6.0"
+  }
 }

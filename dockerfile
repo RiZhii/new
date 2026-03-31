@@ -1,9 +1,8 @@
 FROM debian:bookworm-slim
 ENV DEBIAN_FRONTEND=noninteractive 
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y socat \
     xvfb x11vnc novnc websockify ffmpeg fluxbox \
-    socat \
     chromium \
     dbus-x11 dbus fonts-liberation libnss3 \
     supervisor net-tools iproute2 curl wget git \
@@ -19,6 +18,6 @@ COPY mediamtx.yml /etc/mediamtx.yml
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 6080 8888 8889 8554
+EXPOSE 6080 8888 8889 8554 9222 9223
 
 CMD ["/entrypoint.sh"]

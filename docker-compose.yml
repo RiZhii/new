@@ -13,7 +13,6 @@ services:
       - "8888:8888"
       - "8889:8889"
       - "9222:9222"
-      - "9223:9223"
     networks:
       - app-network
 
@@ -25,11 +24,12 @@ services:
       context: ./runner
       dockerfile: dockerfile  
     container_name: runner
-    depends_on:
-      - browser-box
     networks:
       - app-network
+    depends_on:
+      - browser-box
+    command: sh -c "echo 'waiting for browser...' && sleep 10 && node cli.js --plan test-plan.json"  
 
 networks:
   app-network:
-    driver: bridge                 
+    driver: bridge            

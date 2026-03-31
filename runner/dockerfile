@@ -4,12 +4,12 @@ WORKDIR /app
 
 RUN apk add --no-cache curl
 
-COPY package.json .
+COPY package.json ./
 
 RUN npm install 
 
-COPY runner.js .
-COPY executor.js .
-COPY test-plan.json .
+COPY cli.js ./
+COPY runner.js ./
+COPY test-plan.json ./
 
-CMD ["node", "runner.js"]
+CMD ["node", "cli.js", "--plan", "test-plan.json", "--mode", "remote"]
