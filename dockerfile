@@ -1,11 +1,15 @@
 FROM debian:bookworm-slim
 ENV DEBIAN_FRONTEND=noninteractive 
 
-RUN apt-get update && apt-get install -y socat \
+RUN apt-get update && apt-get install -y \
     xvfb x11vnc novnc websockify ffmpeg fluxbox \
-    chromium \
     dbus-x11 dbus fonts-liberation libnss3 \
     supervisor net-tools iproute2 curl wget git \
+    wget gnupg \
+    && wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google.gpg \
+    && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/novnc/noVNC.git /opt/novnc    
@@ -13,6 +17,7 @@ RUN git clone https://github.com/novnc/noVNC.git /opt/novnc
 RUN wget https://github.com/aler9/mediamtx/releases/download/v1.9.3/mediamtx_v1.9.3_linux_amd64.tar.gz && \
     tar -xzf mediamtx_v1.9.3_linux_amd64.tar.gz -C /usr/local/bin/ mediamtx && \
     rm mediamtx_v1.9.3_linux_amd64.tar.gz
+
 
 COPY mediamtx.yml /etc/mediamtx.yml     
 COPY entrypoint.sh /entrypoint.sh

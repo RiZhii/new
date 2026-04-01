@@ -5,11 +5,11 @@ WORKDIR /app
 RUN apk add --no-cache curl
 
 COPY package.json ./
+RUN npm install  
 
-RUN npm install 
-
+COPY proxy.js ./proxy.js
 COPY cli.js ./
 COPY runner.js ./
 COPY test-plan.json ./
 
-CMD ["node", "cli.js", "--plan", "test-plan.json", "--mode", "remote"]
+CMD sh -c "node proxy.js & sleep 2 && node cli.js --plan test-plan.json --mode remote"

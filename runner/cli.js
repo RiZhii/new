@@ -155,7 +155,7 @@
 //   console.error("fatal:", err.message);
 // });
 
-const axios = require('axios');
+const axios = require ('axios');
 const { chromium } = require('playwright');
 const { loadPlan, executeStep } = require('./runner');
 const fs = require('fs');
@@ -178,10 +178,10 @@ async function run() {
   console.log("\nENTERPRISE TEST RUNNER - Playwright Executor\n");
 
   // connect to browser
-  const res = await axios.get("http://browser-box:9223/json");
+  const res = await axios.get("http://localhost:9223/json");
 
   let wsurl = res.data[0].webSocketDebuggerUrl;
-  wsurl = wsurl.replace("localhost", "browser-box");
+  wsurl = wsurl.replace("127.0.0.1", "browser-box").replace("localhost", "browser-box");
 
   const browser = await chromium.connectOverCDP(wsurl);
 

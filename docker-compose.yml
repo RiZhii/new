@@ -28,8 +28,13 @@ services:
       - app-network
     depends_on:
       - browser-box
-    command: sh -c "echo 'waiting for browser...' && sleep 10 && node cli.js --plan test-plan.json"  
-
+    # command: sh -c "echo 'waiting for the browser...';
+    #                 until curl -sf http://localhost:9223/json > /dev/null; do
+    #                   echo 'still waiting....';
+    #                   sleep 1;
+    #                 done;
+    #                 echo 'browser ready';
+    #                 node cli.js --plan test-plan.json"
 networks:
   app-network:
     driver: bridge            
